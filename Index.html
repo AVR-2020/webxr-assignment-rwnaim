@@ -17,13 +17,13 @@
       <a-entity
         id="score"
         text="width: 10; value: Score: 0"
-        position="4 6 -8"
+        position="4 7 -8"
       ></a-entity>
       <a-entity
         camera
         look-controls
         wasd-controls
-        position="0 5 3"
+        position="0 6 3"
         capture-mouse
         raycaster
         cursor="rayOrigin:mouse"
@@ -50,20 +50,60 @@
         </a-mixin>
         <a-mixin
           id="target"
-          geometry="primitive: cylinder; radius:1.5; height: 0.5"
+          geometry="primitive: cylinder; radius:1; height: 0.8"
           hoverable
-          body="type:static; shape: cylinder"
+          body="type:dynamic; shape: cylinder"
         ></a-mixin>
       </a-assets>
+      <a-mixin
+        id="alas"
+        geometry="primitive: box; width: 2.5; height: 0.2; depth:2.5"
+        body="type: static; shape: box"
+      ></a-mixin>
 
+      <!-- Kubus -->
       <a-entity
-        class="cube"
+        class="cube1"
         mixin="cube"
-        position="3 3.5 -3"
+        position="-5 3.5 -3"
         material="color:#FCE205"
         rotation="0 90 0"
         dynamic-body="mass:500"
       ></a-entity>
+      <a-entity
+        class="cube2"
+        mixin="cube"
+        position="-2 3.5 -3"
+        material="color:#FCE205"
+        rotation="0 90 0"
+        dynamic-body="mass:500"
+      ></a-entity>
+      <a-entity
+        class="cube3"
+        mixin="cube"
+        position="1 3.5 -3"
+        material="color:#FCE205"
+        rotation="0 90 0"
+        dynamic-body="mass:500"
+      ></a-entity>
+      <a-entity
+        class="cube4"
+        mixin="cube"
+        position="4 3.5 -3"
+        material="color:#FCE205"
+        rotation="0 90 0"
+        dynamic-body="mass:500"
+      ></a-entity>
+      <a-entity
+        class="cube5"
+        mixin="cube"
+        position="7 3.5 -3"
+        material="color:#FCE205"
+        rotation="0 90 0"
+        dynamic-body="mass:500"
+      ></a-entity>
+
+      <!-- Object Target -->
       <a-entity
         class="target1"
         mixin="target"
@@ -74,14 +114,58 @@
       <a-entity
         class="target2"
         mixin="target"
-        position="6 5 -8"
+        position="6 6.5 -8"
         rotation="0 45 90"
         material=" color:#1520A6"
       ></a-entity>
+      <a-entity
+        class="target3"
+        mixin="target"
+        position="6 8 -12"
+        rotation="0 45 90"
+        material=" color:#1520A6"
+      ></a-entity>
+      <a-entity
+        class="target4"
+        mixin="target"
+        position="-8 8 -12"
+        rotation="0 45 90"
+        material=" color:#1520A6"
+      ></a-entity>
+
+      <!-- Alas target   -->
+      <a-entity
+        class="alastarget1"
+        mixin="alas"
+        position="-6 3.8 -8"
+        material="color:#FFFFFF"
+      >
+      </a-entity>
+      <a-entity
+        class="alastarget2"
+        mixin="alas"
+        position="6 5 -8"
+        material="color:#FFFFFF"
+      >
+      </a-entity>
+      <a-entity
+        class="alastarget3"
+        mixin="alas"
+        position="-8 7 -12"
+        material="color:#FFFFFF"
+      >
+      </a-entity>
+      <a-entity
+        class="alastarget4"
+        mixin="alas"
+        position="6 7 -12"
+        material="color:#FFFFFF"
+      >
+      </a-entity>
       <!-- Penyangga -->
       <a-cylinder
         body="type: static; shape: cylinder"
-        position="3 0.75 -3"
+        position="7 0.75 -3"
         radius="0.35"
         height="4"
         color="#FFFFFF"
@@ -89,6 +173,27 @@
       <a-cylinder
         body="type: static; shape: cylinder"
         position="-5 0.75 -3"
+        radius="0.35"
+        height="4"
+        color="#FFFFFF"
+      ></a-cylinder>
+      <a-cylinder
+        body="type: static; shape: cylinder"
+        position="-2 0.75 -3"
+        radius="0.35"
+        height="4"
+        color="#FFFFFF"
+      ></a-cylinder>
+      <a-cylinder
+        body="type: static; shape: cylinder"
+        position="1 0.75 -3"
+        radius="0.35"
+        height="4"
+        color="#FFFFFF"
+      ></a-cylinder>
+      <a-cylinder
+        body="type: static; shape: cylinder"
+        position="4 0.75 -3"
         radius="0.35"
         height="4"
         color="#FFFFFF"
@@ -116,14 +221,14 @@
         color="#4CC3D9"
       ></a-box> -->
 
-      <a-entity id="targetaja" collider-check></a-entity>
+      <!-- <a-entity id="targetaja" collider-check></a-entity>
         <a-entity
           raycaster="objects: .target1"
           position="-6 5 -8"
           rotation="0 -45 90"
           geometry="primitive: cylinder; radius:2; height: 0.5"
         ></a-entity>
-      </a-entity>
+      </a-entity> -->
       <!-- <a-entity
         class="collidable"
         geometry="primitive: box"

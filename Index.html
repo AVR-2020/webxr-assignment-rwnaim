@@ -11,6 +11,7 @@
     <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
     <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
     <script src="index.js"></script>
+    <script src="newgame.js"></script>
   </head>
   <body>
     <a-scene physics="iterations:30" environment="preset: tron; shadow: true">
@@ -19,6 +20,7 @@
         text="width: 10; value: Score: 0"
         position="4 7 -8"
       ></a-entity>
+
       <a-entity
         camera
         look-controls
@@ -62,14 +64,22 @@
       ></a-mixin>
 
       <!-- Kubus -->
-      <a-entity
+      <a-gltf-model
+        src="assets/box_wood/scene.gltf"
+        dynamic-body="mass:500"
+        position="1 0 1"
+        grabbable
+        draggable
+        droppable
+        body="shape: box"
+      ></a-gltf-model>
+      <!-- <a-entity
         class="cube1"
         mixin="cube"
         position="-5 3.5 -3"
-        material="color:#FCE205"
         rotation="0 90 0"
         dynamic-body="mass:500"
-      ></a-entity>
+      ></a-entity> -->
       <a-entity
         class="cube2"
         mixin="cube"
@@ -104,13 +114,13 @@
       ></a-entity>
 
       <!-- Object Target -->
-      <a-entity
+      <!-- <a-entity
         class="target1"
         mixin="target"
         position="-6 5 -8"
         rotation="0 -45 90"
         material=" color:#1520A6"
-      ></a-entity>
+      ></a-entity> -->
       <a-entity
         class="target2"
         mixin="target"
@@ -235,6 +245,21 @@
         position="2 0 0"
         static-body
       ></a-entity> -->
+      <!-- refresh -->
+      <a-box
+        id="refresh"
+        position="-15.5 13 -9"
+        scale="4 1.5 0.5"
+        color="black"
+        static-body="mass:1"
+        refresh
+      ></a-box>
+      <a-text
+        position="-16.65 12.85 -8.5"
+        value="NEW GAME"
+        color="white"
+        wrap-count="15"
+      ></a-text>
     </a-scene>
   </body>
 </html>

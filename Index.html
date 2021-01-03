@@ -8,104 +8,9 @@
     <script src="https://unpkg.com/super-hands/dist/super-hands.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@^4.1.1/dist/aframe-event-set-component.min.js"></script>
-    <!-- <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script> -->
+    <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
     <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
-    <script>
-      // forward mouse and touch events to the super-hands entity
-      AFRAME.registerComponent("capture-mouse", {
-        init: function () {
-          this.eventRepeater = this.eventRepeater.bind(this);
-          this.el.sceneEl.addEventListener(
-            "loaded",
-            () => {
-              this.el.sceneEl.canvas.addEventListener(
-                "mousedown",
-                this.eventRepeater
-              );
-              this.el.sceneEl.canvas.addEventListener(
-                "mouseup",
-                this.eventRepeater
-              );
-              this.el.sceneEl.canvas.addEventListener(
-                "touchstart",
-                this.eventRepeater
-              );
-              this.el.sceneEl.canvas.addEventListener(
-                "touchmove",
-                this.eventRepeater
-              );
-              this.el.sceneEl.canvas.addEventListener(
-                "touchend",
-                this.eventRepeater
-              );
-            },
-            { once: true }
-          );
-        },
-        eventRepeater: function (evt) {
-          if (evt.type.startsWith("touch")) {
-            evt.preventDefault();
-            // avoid repeating touchmove because it interferes with look-controls
-            if (evt.type === "touchmove") {
-              return;
-            }
-          }
-          this.el.emit(evt.type, evt.detail);
-        },
-      });
-
-      // AFRAME.registerComponent("color-randomizer", {
-      //   play: function () {
-      //     this.el.addEventListener("drag-drop", function (evt) {
-      //       evt.detail.dropped.setAttribute(
-      //         "material",
-      //         "color",
-      //         "#" + ((Math.random() * 0xffffff) << 0).toString(16)
-      //       );
-      //       // color randomizer credit: http://stackoverflow.com/questions/1484506/random-color-generator-in-javascript#comment6801353_5365036
-      //     });
-      //   },
-      // });
-
-      AFRAME.registerComponent("score-counter", {
-        schema: {
-          el: {
-            type: "selector",
-          },
-          score: {
-            type: "int",
-            default: 0,
-          },
-        },
-
-        init: function () {
-          var sceneEl = document.querySelector("a-scene");
-          var scoreBoard = document.querySelector("#score");
-
-          sceneEl
-            .querySelector("target")
-            .addEventListener("raycaster-intersection", () => {
-              this.data.score++;
-              var newScore = "Score: " + this.data.score;
-              scoreBoard.setAttribute("text", "value", newScore);
-            });
-        },
-      });
-
-      AFRAME.registerComponent("collider-check", {
-        dependencies: ["raycaster"],
-
-        init: function () {
-          var data = this.data;
-          var el = this.el;
-          this.el.addEventListener("raycaster-intersection", function () {
-            console.log("Player hit something!");
-
-            el.setAttribute("color", data.color);
-          });
-        },
-      });
-    </script>
+    <script src="index.js"></script>
   </head>
   <body>
     <a-scene physics="iterations:30" environment="preset: tron; shadow: true">
@@ -211,20 +116,20 @@
         color="#4CC3D9"
       ></a-box> -->
 
-      <a-entity id="targetaja" collider-check>
+      <a-entity id="targetaja" collider-check></a-entity>
         <a-entity
           raycaster="objects: .target1"
           position="-6 5 -8"
           rotation="0 -45 90"
-          geometry="primitive: cylinder; radius:1.5; height: 0.5"
+          geometry="primitive: cylinder; radius:2; height: 0.5"
         ></a-entity>
       </a-entity>
-      <a-entity
+      <!-- <a-entity
         class="collidable"
         geometry="primitive: box"
         position="2 0 0"
         static-body
-      ></a-entity>
+      ></a-entity> -->
     </a-scene>
   </body>
 </html>

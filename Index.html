@@ -1,25 +1,230 @@
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lempar Box</title>
-    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+    <title>A-Frame Super Hands Component - 6DOF With Physics</title>
+    <!-- Replace "../build.js" with the super-hands and
+         A-Frame distributions to run : -->
+    <!-- <script src="../build.js"></script> -->
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/super-hands/dist/super-hands.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@^4.1.1/dist/aframe-event-set-component.min.js"></script>
+    <!-- <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script> -->
+    <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+    <script>
+      // forward mouse and touch events to the super-hands entity
+      AFRAME.registerComponent("capture-mouse", {
+        init: function () {
+          this.eventRepeater = this.eventRepeater.bind(this);
+          this.el.sceneEl.addEventListener(
+            "loaded",
+            () => {
+              this.el.sceneEl.canvas.addEventListener(
+                "mousedown",
+                this.eventRepeater
+              );
+              this.el.sceneEl.canvas.addEventListener(
+                "mouseup",
+                this.eventRepeater
+              );
+              this.el.sceneEl.canvas.addEventListener(
+                "touchstart",
+                this.eventRepeater
+              );
+              this.el.sceneEl.canvas.addEventListener(
+                "touchmove",
+                this.eventRepeater
+              );
+              this.el.sceneEl.canvas.addEventListener(
+                "touchend",
+                this.eventRepeater
+              );
+            },
+            { once: true }
+          );
+        },
+        eventRepeater: function (evt) {
+          if (evt.type.startsWith("touch")) {
+            evt.preventDefault();
+            // avoid repeating touchmove because it interferes with look-controls
+            if (evt.type === "touchmove") {
+              return;
+            }
+          }
+          this.el.emit(evt.type, evt.detail);
+        },
+      });
+
+      // AFRAME.registerComponent("color-randomizer", {
+      //   play: function () {
+      //     this.el.addEventListener("drag-drop", function (evt) {
+      //       evt.detail.dropped.setAttribute(
+      //         "material",
+      //         "color",
+      //         "#" + ((Math.random() * 0xffffff) << 0).toString(16)
+      //       );
+      //       // color randomizer credit: http://stackoverflow.com/questions/1484506/random-color-generator-in-javascript#comment6801353_5365036
+      //     });
+      //   },
+      // });
+
+      AFRAME.registerComponent("score-counter", {
+        schema: {
+          el: {
+            type: "selector",
+          },
+          score: {
+            type: "int",
+            default: 0,
+          },
+        },
+
+        init: function () {
+          var sceneEl = document.querySelector("a-scene");
+          var scoreBoard = document.querySelector("#score");
+
+          sceneEl
+            .querySelector("target")
+            .addEventListener("raycaster-intersection", () => {
+              this.data.score++;
+              var newScore = "Score: " + this.data.score;
+              scoreBoard.setAttribute("text", "value", newScore);
+            });
+        },
+      });
+
+      AFRAME.registerComponent("collider-check", {
+        dependencies: ["raycaster"],
+
+        init: function () {
+          var data = this.data;
+          var el = this.el;
+          this.el.addEventListener("raycaster-intersection", function () {
+            console.log("Player hit something!");
+
+            el.setAttribute("color", data.color);
+          });
+        },
+      });
+    </script>
   </head>
   <body>
-    <a-scene>
-      <a-entity camera look-controls position="0 2.6 1"></a-entity>
-      <a-entity environment="preset: default"></a-entity>
-      <a-box position="3 2.5 -3" rotation="0 90 0" color="#4CC3D9"></a-box>
-      <!-- <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere> -->
+    <a-scene physics="iterations:30" environment="preset: tron; shadow: true">
+      <a-entity
+        id="score"
+        text="width: 10; value: Score: 0"
+        position="4 6 -8"
+      ></a-entity>
+      <a-entity
+        camera
+        look-controls
+        wasd-controls
+        position="0 5 3"
+        capture-mouse
+        raycaster
+        cursor="rayOrigin:mouse"
+        body="type: static; shape: sphere; sphereRadius: 0.001"
+        super-hands="colliderEvent: raycaster-intersection;
+                 colliderEventProperty: els;
+                 colliderEndEvent:raycaster-intersection-cleared;
+                 colliderEndEventProperty: clearedEls;"
+        >></a-entity
+      >
+      <a-assets>
+        <a-mixin
+          id="cube"
+          geometry="primitive: box; width: 1; height: 1; depth: 1"
+          hoverable
+          grabbable
+          draggable
+          stretchable
+          droppable
+          body="shape: box"
+          color-randomizer
+          shadow
+        >
+        </a-mixin>
+        <a-mixin
+          id="target"
+          geometry="primitive: cylinder; radius:1.5; height: 0.5"
+          hoverable
+          body="type:static; shape: cylinder"
+        ></a-mixin>
+      </a-assets>
+
+      <a-entity
+        class="cube"
+        mixin="cube"
+        position="3 3.5 -3"
+        material="color:#FCE205"
+        rotation="0 90 0"
+        dynamic-body="mass:500"
+      ></a-entity>
+      <a-entity
+        class="target1"
+        mixin="target"
+        position="-6 5 -8"
+        rotation="0 -45 90"
+        material=" color:#1520A6"
+      ></a-entity>
+      <a-entity
+        class="target2"
+        mixin="target"
+        position="6 5 -8"
+        rotation="0 45 90"
+        material=" color:#1520A6"
+      ></a-entity>
+      <!-- Penyangga -->
       <a-cylinder
+        body="type: static; shape: cylinder"
         position="3 0.75 -3"
         radius="0.35"
-        height="2.5"
-        color="#FFFFF"
+        height="4"
+        color="#FFFFFF"
+      ></a-cylinder>
+      <a-cylinder
+        body="type: static; shape: cylinder"
+        position="-5 0.75 -3"
+        radius="0.35"
+        height="4"
+        color="#FFFFFF"
       ></a-cylinder>
 
-      <a-sky color="#ECECEC"></a-sky>
+      <a-box
+        body="type: static; shape: box"
+        width="1000"
+        height="0.001"
+        depth="100"
+        visible="false"
+      ></a-box>
+      <!-- <a-entity environment="preset: default"></a-entity> -->
+      <!-- <a-box
+        dynamic-body="mass: 40"
+        hoverable
+        grabbable
+        stretchable
+        draggable
+        dropppable
+        event-set__dragon="_event: dragover-start;"
+        event-set__dragoff="_event: dragover-end;"
+        position="3 2.5 -3"
+        rotation="0 90 0"
+        color="#4CC3D9"
+      ></a-box> -->
+
+      <a-entity id="targetaja" collider-check>
+        <a-entity
+          raycaster="objects: .target1"
+          position="-6 5 -8"
+          rotation="0 -45 90"
+          geometry="primitive: cylinder; radius:1.5; height: 0.5"
+        ></a-entity>
+      </a-entity>
+      <a-entity
+        class="collidable"
+        geometry="primitive: box"
+        position="2 0 0"
+        static-body
+      ></a-entity>
     </a-scene>
   </body>
 </html>

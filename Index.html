@@ -59,89 +59,100 @@
       </a-assets>
       <a-mixin
         id="alas"
-        geometry="primitive: box; width: 2.5; height: 0.2; depth:2.5"
+        geometry="primitive: box; width: 2.5; height: 0.3; depth:2.5"
         body="type: static; shape: box"
       ></a-mixin>
 
       <!-- Kubus -->
       <a-gltf-model
+        id="cube1"
         src="assets/box_wood/scene.gltf"
         dynamic-body="mass:500"
-        position="1 0 1"
+        position="-5 3.5 -3"
+        scale="0.01 0.01 0.01"
         grabbable
         draggable
         droppable
-        body="shape: box"
+        shape="box"
       ></a-gltf-model>
-      <!-- <a-entity
-        class="cube1"
-        mixin="cube"
-        position="-5 3.5 -3"
-        rotation="0 90 0"
+      <a-gltf-model
+        id="cube2"
+        src="assets/box_wood/scene.gltf"
         dynamic-body="mass:500"
-      ></a-entity> -->
-      <a-entity
-        class="cube2"
-        mixin="cube"
         position="-2 3.5 -3"
-        material="color:#FCE205"
-        rotation="0 90 0"
+        scale="0.01 0.01 0.01"
+        grabbable
+        draggable
+        droppable
+        shape="box"
+      ></a-gltf-model>
+      <a-gltf-model
+        id="cube3"
+        src="assets/box_wood/scene.gltf"
         dynamic-body="mass:500"
-      ></a-entity>
-      <a-entity
-        class="cube3"
-        mixin="cube"
         position="1 3.5 -3"
-        material="color:#FCE205"
-        rotation="0 90 0"
+        scale="0.01 0.01 0.01"
+        grabbable
+        draggable
+        droppable
+        shape="box"
+      ></a-gltf-model>
+      <a-gltf-model
+        id="cube4"
+        src="assets/box_wood/scene.gltf"
         dynamic-body="mass:500"
-      ></a-entity>
-      <a-entity
-        class="cube4"
-        mixin="cube"
         position="4 3.5 -3"
-        material="color:#FCE205"
-        rotation="0 90 0"
+        scale="0.01 0.01 0.01"
+        grabbable
+        draggable
+        droppable
+        shape="box"
+      ></a-gltf-model>
+      <a-gltf-model
+        id="cube5"
+        src="assets/box_wood/scene.gltf"
         dynamic-body="mass:500"
-      ></a-entity>
-      <a-entity
-        class="cube5"
-        mixin="cube"
         position="7 3.5 -3"
-        material="color:#FCE205"
-        rotation="0 90 0"
-        dynamic-body="mass:500"
-      ></a-entity>
+        scale="0.01 0.01 0.01"
+        grabbable
+        draggable
+        droppable
+        shape="box"
+      ></a-gltf-model>
 
       <!-- Object Target -->
-      <!-- <a-entity
-        class="target1"
-        mixin="target"
+      <a-gltf-model
+        id="coin1"
+        src="assets/coin/scene.gltf"
+        dynamic-body="mass:200"
         position="-6 5 -8"
-        rotation="0 -45 90"
-        material=" color:#1520A6"
-      ></a-entity> -->
-      <a-entity
-        class="target2"
-        mixin="target"
-        position="6 6.5 -8"
-        rotation="0 45 90"
-        material=" color:#1520A6"
-      ></a-entity>
-      <a-entity
-        class="target3"
-        mixin="target"
-        position="6 8 -12"
-        rotation="0 45 90"
-        material=" color:#1520A6"
-      ></a-entity>
-      <a-entity
-        class="target4"
-        mixin="target"
+        scale="0.75 0.75 0.75"
+        shape="cylinder"
+      ></a-gltf-model>
+      <a-gltf-model
+        id="coin2"
+        src="assets/coin/scene.gltf"
+        dynamic-body="mass:200"
+        position="5 6.5 -8"
+        scale="0.75 0.75 0.75"
+        shape="cylinder"
+      ></a-gltf-model>
+      <a-gltf-model
+        id="coin3"
+        src="assets/coin/scene.gltf"
+        dynamic-body="mass:200"
         position="-8 8 -12"
-        rotation="0 45 90"
-        material=" color:#1520A6"
-      ></a-entity>
+        scale="0.75 0.75 0.75"
+        shape="cylinder"
+      ></a-gltf-model>
+      <a-gltf-model
+        id="coin4"
+        src="assets/coin/scene.gltf"
+        dynamic-body="mass:400"
+        position="6 8 -14"
+        scale="0.75 0.75 0.75"
+        shape="cylinder"
+      ></a-gltf-model>
 
       <!-- Alas target   -->
       <a-entity
@@ -154,7 +165,7 @@
       <a-entity
         class="alastarget2"
         mixin="alas"
-        position="6 5 -8"
+        position="5 5 -8"
         material="color:#FFFFFF"
       >
       </a-entity>
@@ -168,7 +179,7 @@
       <a-entity
         class="alastarget4"
         mixin="alas"
-        position="6 7 -12"
+        position="6 7 -14"
         material="color:#FFFFFF"
       >
       </a-entity>

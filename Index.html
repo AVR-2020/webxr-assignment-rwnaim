@@ -59,6 +59,7 @@
       </a-assets>
       <a-mixin
         id="alas"
+        src="assets/bowling_alley_floor_texture/scene.gltf"
         geometry="primitive: box; width: 2.5; height: 0.3; depth:2.5"
         body="type: static; shape: box"
       ></a-mixin>
@@ -155,36 +156,44 @@
       ></a-gltf-model>
 
       <!-- Alas target   -->
-      <a-entity
-        class="alastarget1"
-        mixin="alas"
-        position="-6 3.8 -8"
-        material="color:#FFFFFF"
+
+      <a-gltf-model
+        id="alas1"
+        src="assets/planks/scene.gltf"
+        scale="0.75 0.75 0.75"
+        body="type: static; shape: box"
+        position="-6 4 -8"
       >
-      </a-entity>
-      <a-entity
-        class="alastarget2"
-        mixin="alas"
+      </a-gltf-model>
+      <a-gltf-model
+        id="alas2"
+        src="assets/planks/scene.gltf"
+        scale="0.75 0.75 0.75"
+        body="type: static; shape: box"
         position="5 5 -8"
-        material="color:#FFFFFF"
       >
-      </a-entity>
-      <a-entity
-        class="alastarget3"
-        mixin="alas"
+      </a-gltf-model>
+
+      <a-gltf-model
+        id="alas3"
+        src="assets/planks/scene.gltf"
+        scale="0.75 0.75 0.75"
+        body="type: static; shape: box"
         position="-8 7 -12"
-        material="color:#FFFFFF"
       >
-      </a-entity>
-      <a-entity
-        class="alastarget4"
-        mixin="alas"
+      </a-gltf-model>
+      <a-gltf-model
+        id="alas4"
+        src="assets/planks/scene.gltf"
+        scale="0.75 0.75 0.75"
+        body="type: static; shape: box"
         position="6 7 -14"
-        material="color:#FFFFFF"
       >
-      </a-entity>
+      </a-gltf-model>
+
       <!-- Penyangga -->
       <a-cylinder
+        src="assets/wood_texture/scene.gltf"
         body="type: static; shape: cylinder"
         position="7 0.75 -3"
         radius="0.35"
@@ -192,6 +201,7 @@
         color="#FFFFFF"
       ></a-cylinder>
       <a-cylinder
+        src="assets/wood_texture/scene.gltf"
         body="type: static; shape: cylinder"
         position="-5 0.75 -3"
         radius="0.35"
@@ -199,6 +209,7 @@
         color="#FFFFFF"
       ></a-cylinder>
       <a-cylinder
+        src="assets/wood_texture/scene.gltf"
         body="type: static; shape: cylinder"
         position="-2 0.75 -3"
         radius="0.35"
@@ -206,6 +217,7 @@
         color="#FFFFFF"
       ></a-cylinder>
       <a-cylinder
+        src="assets/wood_texture/scene.gltf"
         body="type: static; shape: cylinder"
         position="1 0.75 -3"
         radius="0.35"
@@ -213,6 +225,7 @@
         color="#FFFFFF"
       ></a-cylinder>
       <a-cylinder
+        src="assets/wood_texture/scene.gltf"
         body="type: static; shape: cylinder"
         position="4 0.75 -3"
         radius="0.35"
